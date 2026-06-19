@@ -1,0 +1,18 @@
+
+{
+  // Disables the main pop-up suggestions while typing
+  "editor.quickSuggestions": {
+      "other": "off",
+      "comments": "off",
+      "strings": "off"
+  },
+  
+  // Stops suggestions from appearing when typing trigger characters like '.'
+  "editor.suggestOnTriggerCharacters": false,
+  
+  // Stops VS Code from recommending random words you've already typed in the file
+  "editor.wordBasedSuggestions": "off",
+
+  // (Optional) Prevents you from accidentally accepting a suggestion by hitting Enter
+  "editor.acceptSuggestionOnEnter": "off"
+}
