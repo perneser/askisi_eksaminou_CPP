@@ -4,9 +4,9 @@
 #include <list>
 #include <vector>
 #include <string>
+#include "course.h"
 
 class Person;
-class Course;
 class Student;
 class Professor;
 
@@ -88,7 +88,7 @@ class Registry
         void linkMainProfessors(const std::string &filename);
 
         // Η Κεντρική Μέθοδος (Orchestrator)
-        void loadAllData(std::string coursesCsvFile, std::string professorsCsvFile, std::string studentsCsvFile);
+        void loadFromCsv(std::string coursesCsvFile, std::string professorsCsvFile, std::string studentsCsvFile);
 
     };
 

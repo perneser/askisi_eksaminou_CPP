@@ -1,4 +1,7 @@
-// compiled with: g++ main.cpp person.cpp student.cpp professor.cpp course.cpp myException.cpp registry.cpp -o main.o
+#include "registry.h"
+#include "terminalUi.h"
+#include "myException.h"
+#include <iostream>
 
 // Προσθήκες που έγιναν στον κώδικα της άσκησης 3, (πέρα από ό,τι ζητάει η εξαμηνιαία άσκηση):
 
@@ -13,6 +16,35 @@
 // ● Αποθήκευση και ανάκτηση του συνόλου της πληροφορίας σε / από csv αρχεία. 
 
 
+int main() 
+{
+    Registry services;;
+
+    // Προσπαθούμε να φορτώσουμε δεδομένα. 
+    try 
+    {
+        services.loadFromCsv("courses.csv", "professors.csv", "students.csv");
+    } 
+    catch (...) 
+    {
+        // Αν τα αρχεία δεν υπάρχουν (π.χ. πρώτη εκτέλεση), το πρόγραμμα δεν κρασάρει.
+        // Απλά προχωράει έχοντας τις λίστες της Γραμματείας εντελώς άδειες.
+    }
+
+    // Ξεκινάμε κανονικά το περιβάλλον του τερματικού
+    TerminalUI app(services);
+    app.run();
+
+    return 0; 
+}
+
+
+
+// main για την άσκηση 3, με τις νέες προσθήκες που έγιναν
+// στον κώδικα της άσκησης 3, πέρα από ό,τι ζητάει η εξαμηνιαία άσκηση
+// (για την χρήση της, απλά βάλετε σε σχόλια την προηγούμενη main και ξεσχολιάστε αυτήν την main)
+
+/*
 #include "student.h"
 #include "professor.h"
 #include "course.h"
@@ -24,8 +56,6 @@
 #include <cstring>
 
 using namespace std;
-
-/// try-catch block in: person.cpp
 
 int main(int argc, char** argv) {
 
@@ -51,23 +81,23 @@ int main(int argc, char** argv) {
     }
     cout << "==============================================================" << endl;
 
-/*
-    // Επίδειξη λειτουργιών της άσκησης 2
-    cout << "\nΕπίδειξη Λειτουργιών:" << std::endl;
+
+    // // Επίδειξη λειτουργιών της άσκησης 2
+    // cout << "\nΕπίδειξη Λειτουργιών:" << std::endl;
     
-    // Test ++ (Prefix)
-    ++(*students[1]);
-    cout << "Alex Smith μετά από ++: " << *students[1] << std::endl;
+    // // Test ++ (Prefix)
+    // ++(*students[1]);
+    // cout << "Alex Smith μετά από ++: " << *students[1] << std::endl;
 
-    // Test +=
-    *students[0] += 2;
-    cout << "Νίκος Νικολόπουλος μετά από += 2: " << *students[0] << std::endl;
+    // // Test +=
+    // *students[0] += 2;
+    // cout << "Νίκος Νικολόπουλος μετά από += 2: " << *students[0] << std::endl;
 
-    // Test --
-    *students[0] -= 1;
-    cout << "Νίκος Νικολόπουλος μετά από -= 1: " << *students[0] << std::endl;
+    // // Test --
+    // *students[0] -= 1;
+    // cout << "Νίκος Νικολόπουλος μετά από -= 1: " << *students[0] << std::endl;
 
-*/
+ 
 
     // Δημιουργία δυναμικού πίνακα δεικτών σε αντικείμενα Professor
     // (χρήση δεικτών επειδή η κλάση δεν έχει default constructor)
@@ -254,8 +284,8 @@ int main(int argc, char** argv) {
         cout << "==============================================================" << endl;
         cout << "Γίνεται φόρτωση δεδομένων από τα CSV..." << endl;
         
-        // Καλούμε τη μέθοδο loadAllData για να φορτώσουμε τα δεδομένα από τα αρχεία CSV
-        csvRegistry.loadAllData("courses.csv", "professors.csv", "students.csv");
+        // Καλούμε τη μέθοδο loadFromCsv για να φορτώσουμε τα δεδομένα από τα αρχεία CSV
+        csvRegistry.loadFromCsv("courses.csv", "professors.csv", "students.csv");
 
         cout << "Το σύστημα του φοιτητολογίου είναι έτοιμο!" << endl;
 
@@ -279,3 +309,4 @@ int main(int argc, char** argv) {
     
     return 0;
 }
+*/

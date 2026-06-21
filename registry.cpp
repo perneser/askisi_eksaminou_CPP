@@ -472,9 +472,9 @@ std::vector<Course> Registry::getCoursesFromCsv(const std::string &filename) con
     return loadedCourses;
 }
 
-void Registry::linkMainProfessors(const std::string &professorsCsvfile) 
+void Registry::linkMainProfessors(const std::string &coursesCsvfile) 
 {
-    std::ifstream iFile(professorsCsvfile);
+    std::ifstream iFile(coursesCsvfile);
     std::string line;
     
     while (std::getline(iFile, line)) 
@@ -506,21 +506,35 @@ void Registry::linkMainProfessors(const std::string &professorsCsvfile)
     }
 }
 
-void Registry::loadAllData(std::string coursesCsvFile, std::string professorsCsvFile, std::string studentsCsvFile) 
+void Registry::loadFromCsv(std::string coursesCsvFile, std::string professorsCsvFile, std::string studentsCsvFile) 
 {
-    // Φορτώνουμε πρώτα τα Μαθήματα
-    this->courses = this->getCoursesFromCsv(coursesCsvFile);
+    // Δοκιμάζουμε να φορτώσουμε τα Μαθήματα
+    try {
+        this->courses = this->getCoursesFromCsv(coursesCsvFile);
+    } catch (...) {
+        // Αν δεν βρεθεί το αρχείο, αγνόησέ το (η λίστα courses παραμένει άδεια)
+    }
 
-    // Φορτώνουμε τους καθηγητές και τους βάζουμε στη λίστα persons
-    std::vector<Professor*> loadedProfs = this->getProfessorsFromCsv(professorsCsvFile);
-    this->persons.insert(this->persons.end(), loadedProfs.begin(), loadedProfs.end());
+    // Δοκιμάζουμε να φορτώσουμε τους Καθηγητές
+    try {
+        std::vector<Professor*> loadedProfs = this->getProfessorsFromCsv(professorsCsvFile);
+        this->persons.insert(this->persons.end(), loadedProfs.begin(), loadedProfs.end());
+    } catch (...) {
+        // Αν δεν βρεθεί το αρχείο, αγνόησέ το
+    }
 
-    // Φορτώνουμε τους φοιτητές και τους βάζουμε στη λίστα persons
-    std::vector<Student*> loadedStudents = this->getStudentsFromCsv(studentsCsvFile);
-    this->persons.insert(this->persons.end(), loadedStudents.begin(), loadedStudents.end());
+    // Δοκιμάζουμε να φορτώσουμε τους Φοιτητές
+    try {
+        std::vector<Student*> loadedStudents = this->getStudentsFromCsv(studentsCsvFile);
+        this->persons.insert(this->persons.end(), loadedStudents.begin(), loadedStudents.end());
+    } catch (...) {
+        // Αν δεν βρεθεί το αρχείο, αγνόησέ το
+    }
 
-    // Τελική Σύνδεση Υπεύθυνων Καθηγητών στα Μαθήματα
-    this->linkMainProfessors(professorsCsvFile);
-    
-    std::cout << "Όλα τα δεδομένα φορτώθηκαν και συνδέθηκαν επιτυχώς!" << std::endl;
+    // Δοκιμάζουμε να συνδέσουμε τους Καθηγητές στα Μαθήματα
+    try {
+        this->linkMainProfessors(coursesCsvFile);
+    } catch (...) {
+        // Αν δεν υπάρχουν μαθήματα ή καθηγητές, απλά προχώρα
+    }
 }
