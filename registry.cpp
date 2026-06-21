@@ -9,6 +9,17 @@
 #include <fstream>
 #include <sstream>
 
+// Destructor
+Registry::~Registry() 
+{
+    // Καθαρίζουμε τη μνήμη για κάθε Person που δημιουργήθηκε με new
+    for (Person* p : persons) 
+    {
+        delete p;
+    }
+    persons.clear();
+}
+
 std::vector<Person*> Registry::getPersons() const
 {
     return persons;

@@ -14,6 +14,7 @@ private:
     // Ιδιωτικές βοηθητικές μέθοδοι του μενού
     void drawMainMenu(int highlight);
     void showMessage(const std::string& msg);
+    bool getStringInput(const std::string& prompt, char* buffer, int max_len, int y, int x);
 
 public:
     // Constructor: Παίρνει το ήδη φορτωμένο φοιτητολόγιο
@@ -35,6 +36,8 @@ public:
     void assignCourseToPerson();
     void removeCourseFromPerson();
     void assignProfessorToCourse();
+    void sendEmailToStudents();
+    void sendEmailToProfessors();
 
     // Η κεντρική μέθοδος που τρέχει το πρόγραμμα
     void run();

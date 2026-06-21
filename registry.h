@@ -20,6 +20,8 @@ class Registry
         // Κατάλογος των μαθημάτων
         std::vector<Course> courses;    // Composition
     public:
+        // Destructor
+        ~Registry();
         // Getters
         std::vector<Person*> getPersons()const;
 
